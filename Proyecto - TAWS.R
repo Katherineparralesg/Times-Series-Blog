@@ -1,32 +1,34 @@
+#Through this function the databases are enabled: Unemployment_female / Unemployment_male
+attach(unemployment_female)
+attach(unemployment_male)
+
 #Histograms
 #Histogram of the variable unemployment female
-attach(unemployment_female)
-names(unemployment_female)
 hist(unemployment_female$Number, main = "Histogram of the variable unemployment female", col = "lightsalmon", xlab = "Unemployment female", ylab = "Frequency")
 
 #Histogram of the variable unemployment male
-attach(unemployment_male)
-names(unemployment_male)
 hist(unemployment_male$Number, main = "Histogram of the variable unemployment male", col = "royalblue1", xlab = "Unemployment male", ylab = "Frequency")
 
 #Time Series
-#Time series unemployment female 
+#Time series unemployment female (This graph only shows the points corresponding to unemployment female according to the date)
 plot(unemployment_female, main = "Time Series of the unemployment female", col = "lightsalmon", ylab = "Unemployment female", xlab = "Year")
 
-#Time series unemployment female (object)
+#Time series unemployment female (This graph shows the time series corresponding to unemployment female)
 unemployment_female_ts = ts(unemployment_female$Number, start = c(2013,1), frequency = 12)
-print(unemployment_female_ts)
+print(unemployment_female_ts) #This function shows a table about unemployment female: rows -> year, columns -> Months
 plot(unemployment_female_ts, main = "Time Series of the unemployment female", col = "lightsalmon",  ylab = "Unemployment female", xlab = "Year")
 
-#Time series unemployment male 
+#Time series unemployment male (This graph only shows the points corresponding to unemployment male according to the date)
 plot(unemployment_male, main = "Time Series of the unemployment male", col = "royalblue1", ylab = "Unemployment male", xlab = "Year")
 
-#Time series unemployment male (object)
+#Time series unemployment male (This graph shows the time series corresponding to unemployment male)
 unemployment_male_ts = ts(unemployment_male$Number, start = c(2013,1), frequency = 12)
-print(unemployment_male_ts)
+print(unemployment_male_ts) #This function shows a table about unemployment male: rows -> year, columns -> Months
 plot(unemployment_male_ts, main = "Time Series of the unemployment male", col = "royalblue1",  ylab = "Unemployment male", xlab = "Year")
 
-#Decomposition of additive time series
+#Decomposition of additive time series: This function shows the structural components of an observed time series
+#Observed time series = Trend + Seasonal effect + Random
+
 #Decomposition of additive time series (Unemployment Female)
 unemployment_female_desc = decompose(unemployment_female_ts)
 plot(unemployment_female_desc, xlab = "Year",  col = "lightsalmon")
