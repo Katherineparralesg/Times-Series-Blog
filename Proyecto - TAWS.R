@@ -61,6 +61,7 @@ library(tseries)
 #adf.test(unemployment_male_ts)
 
 #Autocorrelation function estimation
+library(astsa)
 Acf(unemployment_female_ts, plot = TRUE, main = "ACF - Unemployment Female")
 Acf(unemployment_male_ts, plot = TRUE, main = "ACF - Unemployment Male")
 
