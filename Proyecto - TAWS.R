@@ -9,6 +9,7 @@ hist(unemployment_female$Number, main = "Histogram of the variable unemployment 
 #Histogram of the variable unemployment male
 hist(unemployment_male$Number, main = "Histogram of the variable unemployment male", col = "royalblue1", xlab = "Unemployment male", ylab = "Frequency")
 
+
 #Time Series
 #Time series unemployment female (This graph only shows the points corresponding to unemployment female according to the date)
 plot(unemployment_female, main = "Time Series of the unemployment female", col = "lightsalmon", ylab = "Unemployment female", xlab = "Year")
@@ -26,41 +27,51 @@ unemployment_male_ts = ts(unemployment_male$Number, start = c(2013,1), frequency
 print(unemployment_male_ts) #This function shows a table about unemployment male: rows -> year, columns -> Months
 plot(unemployment_male_ts, main = "Time Series of the unemployment male", col = "royalblue1",  ylab = "Unemployment male", xlab = "Year")
 
+
+#Boxplots
+#Boxplot(Unemployment Female)
+boxplot(unemployment_female_ts ~ cycle(unemployment_female_ts), main = "Boxplot - Unemployment Female", col = "lightsalmon")
+
+#Boxplot(Unemployment Male)
+boxplot(unemployment_male_ts ~ cycle(unemployment_male_ts), , main = "Boxplot - Unemployment Male", col = "royalblue1")
+
+
 #Decomposition of additive time series: This function shows the structural components of an observed time series
 #Observed time series = Trend + Seasonal effect + Random
 
 #Decomposition of additive time series (Unemployment Female)
-unemployment_female_desc = decompose(unemployment_female_ts)
+unemployment_female_desc <- decompose(unemployment_female_ts)
 plot(unemployment_female_desc, xlab = "Year",  col = "lightsalmon")
 
 #Decomposition of additive time series (Unemployment Male)
-unemployment_male_desc = decompose(unemployment_male_ts)
+unemployment_male_desc <- decompose(unemployment_male_ts)
 plot(unemployment_male_desc, xlab = "Year", col = "royalblue1")
-
 
 #Transformation Of the serie
 #Stabilization of variance
-unemployment_female_stab = log(unemployment_female_ts)
-unemployment_male_stab = log(unemployment_male_ts)
+unemployment_female_stab <- log(unemployment_female_ts)
+unemployment_male_stab <- log(unemployment_male_ts)
 plot(unemployment_female_stab, xlab = "Year", ylab = "Unemployment Female", col = "lightsalmon", main = "Stabilization of variance")
 plot(unemployment_male_stab, xlab = "Year", ylab = "Unemployment Male", col = "royalblue1", main = "Stabilization of variance")
 
 #Trend elimination
-unemployment_female_trendelim = diff(unemployment_female_stab)
-unemployment_male_trendelim = diff(unemployment_male_stab)
+unemployment_female_trendelim <- diff(unemployment_female_stab)
+unemployment_male_trendelim <- diff(unemployment_male_stab)
 plot(unemployment_female_trendelim, xlab = "Year", ylab = "Unemployment Female", col = "lightsalmon", main = "Trend elimination")
 plot(unemployment_male_trendelim, xlab = "Year", ylab = "Unemployment Male", col = "royalblue1", main = "Trend elimination")
 
 # Elimination of seasonality
-unemployment_female_seasonelim = diff(unemployment_female_trendelim, lag = 12)
-unemployment_male_seasonelim = diff(unemployment_male_trendelim, lag = 12)
+unemployment_female_seasonelim <- diff(unemployment_female_trendelim, lag = 12)
+unemployment_male_seasonelim <- diff(unemployment_male_trendelim, lag = 12)
 plot(unemployment_female_seasonelim,  xlab = "Year", ylab = "Unemployment Female", col = "lightsalmon", main = "Elimination of seasonality")
 plot(unemployment_male_seasonelim, xlab = "Year", ylab = "Unemployment Male", col = "royalblue1", main = "Elimination of seasonality")
+
 
 #Dickey-Fuller Test
 library(tseries)
 #adf.test(unemployment_female_ts)
 #adf.test(unemployment_male_ts)
+
 
 #Autocorrelation function estimation
 library(astsa)
